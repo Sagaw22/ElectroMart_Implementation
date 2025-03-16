@@ -5,6 +5,9 @@ import 'swiper/css';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css'; // core Swiper
 import 'swiper/css/navigation'; // navigation module
+const DOMAIN = process.env.REACT_APP_DOMAIN;
+const GET_PRODUCT_RECOMMENDATIONS = process.env.REACT_APP_GET_PRODUCT_RECOMMENDATIONS;
+
 
 
 
@@ -14,7 +17,7 @@ const Carousel = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/get-product-recommendations');
+        const response = await axios.get(`${DOMAIN}${GET_PRODUCT_RECOMMENDATIONS}`);
         setProducts(response.data);
       } catch (error) {
         console.error('Error fetching products:', error);
