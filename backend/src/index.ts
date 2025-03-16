@@ -3,10 +3,11 @@ import { recommendedProducts } from './dummyData';
 import dotenv from 'dotenv';
 
 //loading environment variables
-dotenv.config;
+dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3001;
+const FEATURE_UNFINISHED_ENABLED = process.env.FEATURE_UNFINISHED_ENABLED === 'true';
 const cors = require('cors');
 app.use(cors());
 
@@ -37,7 +38,10 @@ app.get("/get-products-by-category", (req: Request, res: Response) => {
 });
 
 app.get("/unfinished-feature", (_: Request, res: Response) => {
-  // Oh no, this feature is not ready for production!
+  if (!FEATURE_UNFINISHED_ENABLED) {
+    return res.status(404).send('Feature not available');
+  }
+
   return res.status(500).send('Internal Server Error');
 });
 
